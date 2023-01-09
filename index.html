@@ -1,0 +1,177 @@
+<html>
+	<style>
+		@keyframes shake {
+	25% {
+		transform: rotate(calc(var(--angle) * -1));
+	}
+
+	50% {
+		transform: rotate(var(--angle));
+	}
+
+	100% {
+		transform: rotate(0deg);
+	}
+}
+
+body {
+	font: 100 1.3em sans-serif;
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+	padding: 0 5rem;
+}
+
+h1 {
+	font-weight: 100;
+}
+
+.display {
+	display: block;
+	grid-template-columns: 50% 50%;
+	gap: 0.1em;
+	text-align: center;
+}
+
+.HOVER {
+	--width: 100%;
+	--time: 0.7s;
+
+	position: relative;
+	display: inline-block;
+	width: 500px;
+	height: 1em;
+	padding: 1em;
+
+	color: yellow;
+	background: #222;
+	overflow: hidden;
+	justify-content: center;
+	text-align: center;
+	border-spacing: -15px;
+}
+
+.HOVER text {
+	position: relative;
+	z-index: 5;
+	text-align: center;
+	transition: color var(--time);
+	justify-content: center;
+}
+
+.HOVER:hover text {
+	color: #222;
+}
+
+.HOVER span {
+	position: absolute;
+	display: block;
+	content: "";
+	z-index: 0;
+	width: 0;
+	height: 0;
+	
+	border-radius: 100%;
+	background: yellow;
+	
+	transform: translate(-50%, -50%);
+	transition: width var(--time), padding-top var(--time);
+	justify-content: center;
+	text-align: center;
+}
+
+.HOVER:hover span {
+	width: calc(var(--width) * 2.25);
+	padding-top: calc(var(--width) * 2.25);
+	justify-content: center;
+	text-align: center;
+}
+
+.HOVER.FLASH:hover text {
+	color: white;
+}
+
+.HOVER.FLASH span {
+	background: #ff3b3b;
+}
+
+.animated {
+	--angle: 5deg;
+	animation: shake 0.3s;
+}
+
+.link{
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+	
+	font-size: 1rem;
+}
+
+.insta{
+	text-decoration: none;
+	color: white;
+}
+	</style>
+	<body background="C:\Users\user\Downloads\wallpaperflare.com_wallpaper.jpg">
+	<h1 style="text-align: center;">
+		<img src="C:\Users\user\Pictures\ProfilePictureMaker.png"/></h1>
+		<p style="text-align: center; color: white;">@dapurchintya1980</p>
+	<div class="display">
+		<p class="HOVER">
+			<span></span>
+			<a href="https://api.whatsapp.com/send/?phone=%2B6285250764409&text&type=phone_number&app_absent=0" class="insta">
+			<text>Whatsapp</text></a>
+		</p></p>
+		<p class="HOVER">
+			<span></span>
+			<a href="https://instagram.com/chintya1980?igshid=MTg0ZDhmNDA=" class="insta">
+			<text>Instagram</text></a>
+		</p></p>
+		<p class="HOVER">
+			<span></span>
+			<a href="https://goo.gl/maps/SdhA2FFamrT6n8V46" class="insta">
+			<text>Location</text></a>
+		</p></p>
+	</div>
+	</body>
+	<footer>
+		<div class="link">Official Dapur Chintya</div>
+	</footer>
+
+	<script>
+		const ANIMATEDCLASSNAME = "animated";
+const ELEMENTS = document.querySelectorAll(".HOVER");
+const ELEMENTS_SPAN = [];
+
+ELEMENTS.forEach((element, index) => {
+	let addAnimation = false;
+	// Elements that contain the "FLASH" class, add a listener to remove
+	// animation-class when the animation ends
+	if (element.classList[1] == "FLASH") {
+		element.addEventListener("animationend", e => {
+			element.classList.remove(ANIMATEDCLASSNAME);
+		});
+		addAnimation = true;
+	}
+
+	// If The span element for this element does not exist in the array, add it.
+	if (!ELEMENTS_SPAN[index])
+		ELEMENTS_SPAN[index] = element.querySelector("span");
+
+	element.addEventListener("mouseover", e => {
+		ELEMENTS_SPAN[index].style.left = e.pageX - element.offsetLeft + "px";
+		ELEMENTS_SPAN[index].style.top = e.pageY - element.offsetTop + "px";
+
+		// Add an animation-class to animate via CSS.
+		if (addAnimation) element.classList.add(ANIMATEDCLASSNAME);
+	});
+
+	element.addEventListener("mouseout", e => {
+		ELEMENTS_SPAN[index].style.left = e.pageX - element.offsetLeft + "px";
+		ELEMENTS_SPAN[index].style.top = e.pageY - element.offsetTop + "px";
+	});
+});
+	</script>
+
+</html>
